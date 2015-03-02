@@ -17,7 +17,7 @@ public class MinimumValue extends Validation<String> {
         int i;
 
         try {
-            i = Integer.valueOf(value);
+            i = Integer.parseInt(value);
         } catch(NumberFormatException e) {
             setMessage(R.string.tika_error_number_required);
             return false;
