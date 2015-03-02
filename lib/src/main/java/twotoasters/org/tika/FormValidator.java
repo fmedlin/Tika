@@ -1,5 +1,6 @@
 package twotoasters.org.tika;
 
+import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 
@@ -7,8 +8,8 @@ import java.util.List;
 
 public class FormValidator {
 
-    public static Builder onForm(Form form) {
-        return new Builder(form);
+    public static Builder onForm(Context context, Form form) {
+        return new Builder(context, form);
     }
 
     List<FieldError> errors;
@@ -21,11 +22,13 @@ public class FormValidator {
     }
 
     public static class Builder {
+        Context context;
         Form form;
         Field field;
         int id;
 
-        public Builder(Form form) {
+        public Builder(Context context, Form form) {
+            this.context = context;
             this.form = form;
         }
 
@@ -45,7 +48,7 @@ public class FormValidator {
         public Builder using(Validation validation) {
             if (field != null) {
                 if (!validation.isValid(field.value)) {
-                    form.addError(id, validation.getMessage());
+                    form.addError(id, validation.getMessage(context));
                 }
             }
             return this;

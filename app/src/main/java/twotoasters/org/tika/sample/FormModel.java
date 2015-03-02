@@ -2,6 +2,7 @@ package twotoasters.org.tika.sample;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.text.TextUtils;
 
 import com.squareup.phrase.Phrase;
 
@@ -18,7 +19,7 @@ import twotoasters.org.tika.Validation;
 public class FormModel {
 
     public List<FieldError> validate(Context context, Form form) {
-        FormValidator validator = FormValidator.onForm(form)
+        FormValidator validator = FormValidator.onForm(context, form)
                 .validates(R.id.name)
                     .required(R.string.error_name_required)
                 .validates(R.id.password)
@@ -53,16 +54,15 @@ public class FormModel {
                                 .format()
                 );
                 return false;
-            } else if (!value.matches("\\d")) {
+            }
+
+            if (!value.matches("(.)*(\\d)(.)*")
+                    || TextUtils.isDigitsOnly(value)) {
                 setMessage(R.string.error_password_reminder);
                 return false;
             }
 
             return true;
-        }
-
-        private void setMessage(CharSequence message) {
-            this.message = message;
         }
     }
 

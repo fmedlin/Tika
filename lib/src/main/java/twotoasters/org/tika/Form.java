@@ -37,6 +37,11 @@ public class Form {
         return this;
     }
 
+    public Form addError(@IdRes int id, CharSequence errorMsg) {
+        getErrors().add(new FieldError(id, errorMsg));
+        return this;
+    }
+
     protected List<FieldError> getErrors() {
         if (errors == null) {
             errors = new ArrayList<>();

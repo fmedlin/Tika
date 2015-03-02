@@ -1,8 +1,10 @@
 package twotoasters.org.tika.sample;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -39,6 +41,10 @@ public class FormView {
         return ButterKnife.findById(getActivity(), id);
     }
 
+    protected Context getContext() {
+        return getActivity();
+    }
+
     protected Activity getActivity() {
         return activityRef.get();
     }
@@ -47,11 +53,11 @@ public class FormView {
         return getActivity().getString(id);
     }
 
-    public void setError(@IdRes int id, @StringRes int msgId) {
-        if (msgId == 0) return;
+    public void setError(@IdRes int id, CharSequence message) {
+        if (TextUtils.isEmpty(message)) return;
 
         TextView tv = findById(id);
-        tv.setError(getString(msgId));
+        tv.setError(message);
         tv.requestFocus();
     }
 }

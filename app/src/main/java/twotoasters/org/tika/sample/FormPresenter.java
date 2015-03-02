@@ -25,7 +25,7 @@ public class FormPresenter {
             // Do the success case
         } else {
             for (FieldError error : errors) {
-                view.setError(error.getId(), error.getMessage());
+                view.setError(error.getId(), error.getMessage(view.getActivity()));
             }
         }
     }
