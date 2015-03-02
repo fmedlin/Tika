@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Tika</string>
+    <string name="tika_error_number_required">A number is required</string>
 </resources>

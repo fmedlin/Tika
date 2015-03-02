@@ -22,8 +22,8 @@ public class FormValidator {
 
     public static class Builder {
         Form form;
-        int id;
         Field field;
+        int id;
 
         public Builder(Form form) {
             this.form = form;
@@ -38,6 +38,32 @@ public class FormValidator {
         public Builder required(@StringRes int resId) {
             if (field == null || field.isEmpty()) {
                 form.addError(id, resId);
+            }
+            return this;
+        }
+
+        public Builder using(Validation validation) {
+            if (field != null) {
+                if (!validation.isValid(field.value)) {
+                    form.addError(id, validation.getMessage());
+                }
+            }
+            return this;
+        }
+
+        public Builder using(Validation validation, @StringRes int msgId) {
+            if (field != null) {
+                if (!validation.isValid(field.value)) {
+                    form.addError(id, msgId);
+                }
+            }
+            return this;
+        }
+
+        public Builder matches(@IdRes int id, @StringRes int msgId) {
+            Field f = form.getField(id);
+            if (!field.value.equals(f.value)) {
+                form.addError(this.id, msgId);
             }
             return this;
         }

@@ -20,7 +20,7 @@ public class FormPresenter {
     @Subscribe
     @SuppressWarnings("unused")
     public void onFormSubmit(FormSubmitEvent event) {
-        List<FieldError> errors = model.validate(event.getForm());
+        List<FieldError> errors = model.validate(view.getActivity(), event.getForm());
         if (errors.isEmpty()) {
             // Do the success case
         } else {

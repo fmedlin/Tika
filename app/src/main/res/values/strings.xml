@@ -1,6 +1,14 @@
 <resources>
     <string name="action_settings">Settings</string>
     <string name="app_name">Tika</string>
+    <string name="error_age_required">Age is a required field</string>
+    <string name="error_bad_date">Use a valid date format</string>
+    <string name="error_birthdate_required">Birth date is a required field</string>
+    <string name="error_minimum_age">You must be at least 18 years old</string>
     <string name="error_name_required">Name is a required field</string>
+    <string name="error_password_reminder">Password requires alphanumeric string with at least one digit</string>
+    <string name="error_password_required">Password is a required field</string>
+    <string name="error_password_too_short">Password must be > {at_least} characters</string>
+    <string name="error_passwords_must_match">Passwords must match</string>
     <string name="hello_world">Hello Tika!</string>
 </resources>

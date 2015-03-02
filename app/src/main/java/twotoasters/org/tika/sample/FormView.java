@@ -3,7 +3,6 @@ package twotoasters.org.tika.sample;
 import android.app.Activity;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
-import android.view.View;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -26,12 +25,17 @@ public class FormView {
     @OnClick(R.id.submit)
     @SuppressWarnings("unused")
     public void onSubmitForm() {
-        Form form = new Form();
-        form.addField(Tika.field(findById(R.id.name)));
+        Form form = new Form()
+                .addField(Tika.field(findById(R.id.name)))
+                .addField(Tika.field(findById(R.id.password)))
+                .addField(Tika.field(findById(R.id.confirm_password)))
+                .addField(Tika.field(findById(R.id.age)))
+                .addField(Tika.field(findById(R.id.birthdate)));
+
         BusProvider.getInstance().post(new FormSubmitEvent(form));
     }
 
-    private View findById(@IdRes int id) {
+    private TextView findById(@IdRes int id) {
         return ButterKnife.findById(getActivity(), id);
     }
 
@@ -42,7 +46,12 @@ public class FormView {
     protected CharSequence getString(@StringRes int id) {
         return getActivity().getString(id);
     }
+
     public void setError(@IdRes int id, @StringRes int msgId) {
-        ((TextView) findById(id)).setError(getString(msgId));
+        if (msgId == 0) return;
+
+        TextView tv = findById(id);
+        tv.setError(getString(msgId));
+        tv.requestFocus();
     }
 }
