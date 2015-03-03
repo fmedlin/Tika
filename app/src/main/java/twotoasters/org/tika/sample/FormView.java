@@ -32,7 +32,8 @@ public class FormView {
                 .addField(Tika.field(findById(R.id.password)))
                 .addField(Tika.field(findById(R.id.confirm_password)))
                 .addField(Tika.field(findById(R.id.age)))
-                .addField(Tika.field(findById(R.id.birthdate)));
+                .addField(Tika.field(findById(R.id.birthdate)))
+                .addField(Tika.field(findById(R.id.postal_code)));
 
         BusProvider.getInstance().post(new FormSubmitEvent(form));
     }

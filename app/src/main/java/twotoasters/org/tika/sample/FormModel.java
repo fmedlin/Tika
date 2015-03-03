@@ -14,6 +14,7 @@ import twotoasters.org.tika.FieldError;
 import twotoasters.org.tika.Form;
 import twotoasters.org.tika.FormValidator;
 import twotoasters.org.tika.MinimumValue;
+import twotoasters.org.tika.RegexValidation;
 import twotoasters.org.tika.Validation;
 
 public class FormModel {
@@ -33,6 +34,9 @@ public class FormModel {
                 .validates(R.id.birthdate)
                     .required(R.string.error_birthdate_required)
                     .using(new DateFormatValidation(R.string.error_bad_date))
+                .validates(R.id.postal_code)
+                    .required(R.string.error_postal_code_required)
+                    .using(new PostalCodeValidation(), R.string.error_bad_postal_code)
                 .build();
 
         return validator.getErrors();
@@ -89,6 +93,13 @@ public class FormModel {
 
             setMessage(msgId);
             return false;
+        }
+    }
+
+    // Match US or Canadian postal codes
+    public static class PostalCodeValidation extends RegexValidation {
+        public PostalCodeValidation() {
+            super("(^\\d{5}(-\\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\\d{1}[A-Z]{1} *\\d{1}[A-Z]{1}\\d{1}$)");
         }
     }
 }
