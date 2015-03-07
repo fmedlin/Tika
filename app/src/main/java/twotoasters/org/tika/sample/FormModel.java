@@ -37,6 +37,8 @@ public class FormModel {
                 .validates(R.id.postal_code)
                     .required(R.string.error_postal_code_required)
                     .using(new PostalCodeValidation(), R.string.error_bad_postal_code)
+                .validates(R.id.terms)
+                    .using(new IsCheckedValidation(), R.string.error_agreement_required)
                 .build();
 
         return validator.getErrors();
@@ -100,6 +102,14 @@ public class FormModel {
     public static class PostalCodeValidation extends RegexValidation {
         public PostalCodeValidation() {
             super("(^\\d{5}(-\\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\\d{1}[A-Z]{1} *\\d{1}[A-Z]{1}\\d{1}$)");
+        }
+    }
+
+    public static class IsCheckedValidation extends Validation<Boolean> {
+        @Override
+        public boolean isValid(Boolean value) {
+            // Input assumed to be value of CheckBox.isChecked()
+            return value;
         }
     }
 }

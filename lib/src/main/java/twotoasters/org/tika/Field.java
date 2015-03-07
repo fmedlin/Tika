@@ -14,10 +14,10 @@ public class Field<T> {
     }
 
     public boolean isEmpty() {
-        if (value instanceof CharSequence   ) {
+        if (value instanceof CharSequence) {
             return TextUtils.isEmpty((CharSequence) value);
         }
 
-        return true;
+        return false;
     }
 }
